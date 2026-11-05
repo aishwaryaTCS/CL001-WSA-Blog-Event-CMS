@@ -78,7 +78,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
 .logo { height: 68px; width: auto; display: block; }
 
-.mast nav { display: flex; align-items: center; gap: 22px; border: 0; padding: 0; }
+.mast nav { display: flex; flex-wrap: wrap; justify-content: flex-end; align-items: center; gap: 10px 22px; border: 0; padding: 0; }
 
 .mast nav a, .mast button.link {
   margin: 0;
@@ -786,4 +786,9 @@ button:disabled { opacity: 0.45; cursor: not-allowed; }
 @media (max-width: 640px) {
   .page-head-row, .note-grid, .pillar-pick, .more, .facts, .field-row, .share-card { grid-template-columns: 1fr; }
   .facts div + div { border-left: 0; padding-left: 0; margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--grey-200); }
+}
+
+@media (max-width: 520px) {
+  .mast-inner { flex-direction: column; align-items: flex-start; gap: 10px; padding: 12px 0; }
+  .mast nav { justify-content: flex-start; gap: 8px 16px; }
 }

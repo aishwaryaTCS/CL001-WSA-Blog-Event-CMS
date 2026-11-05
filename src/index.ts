@@ -6,6 +6,10 @@ import { mountAdmin } from "./admin-routes.ts";
 import { adminCount, createAdmin, migrate, openDatabase, seedNotes } from "./db.ts";
 import { ensureUploads } from "./photos.ts";
 import { mountPublic } from "./public-routes.ts";
+import { mountCalendarAdmin } from "./calendar/admin-routes.ts";
+import { ensureCalendarUploads, sweepCalendarUploads } from "./calendar/photos.ts";
+import { mountCalendarPublic } from "./calendar/public-routes.ts";
+import { seedCalendar } from "./calendar/seed.ts";
 import { ROOT } from "./root.ts";
 import { COPY } from "./schemas.ts";
 import path from "node:path";
@@ -69,6 +73,10 @@ async function main(): Promise<void> {
   }
 
   await seedNotes();
+  await ensureCalendarUploads();
+  await seedCalendar();
+  const swept = await sweepCalendarUploads();
+  if (swept) console.log(`Removed ${swept} unused calendar photo files.`);
 
   const app = express();
   app.disable("x-powered-by");
@@ -87,7 +95,9 @@ async function main(): Promise<void> {
   });
   app.use(rejectCrossSite);
   mountPublic(app);
+  mountCalendarPublic(app);
   mountAdmin(app);
+  mountCalendarAdmin(app);
   app.get("/", (_req, res) => {
     res.redirect("/admin");
   });

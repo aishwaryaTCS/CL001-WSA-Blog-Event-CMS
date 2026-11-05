@@ -65,7 +65,7 @@ export function mountAdmin(app: Express): void {
   app.get("/admin", async (req, res, next) => {
     try {
       if (await adminFromRequest(req)) {
-        res.redirect("/admin/notes");
+        res.redirect("/admin/home");
         return;
       }
       const notice = req.query.notice === "password" ? COPY.passwordChanged : "";
@@ -80,7 +80,7 @@ export function mountAdmin(app: Express): void {
       const result = await attemptLogin(req);
       if (result.ok) {
         setSession(res, result.admin);
-        res.redirect("/admin/notes");
+        res.redirect("/admin/home");
         return;
       }
       send(res, result.status, "Sign in", () => signInPage(result.error, ""), false);

@@ -50,7 +50,7 @@ function eyebrow(text: string, tone = ""): string {
 
 export function page(title: string, body: string, signedIn: boolean, nonce: string): string {
   const mast = signedIn
-    ? `<header class="mast"><div class="mast-inner"><a href="/admin/notes">${logo()}</a><nav><a href="/admin/notes">Notes</a><a href="/admin/password">Password</a><form method="post" action="/admin/logout"><button class="link" type="submit">Sign out</button></form></nav></div></header>`
+    ? `<header class="mast"><div class="mast-inner"><a href="/admin/home">${logo()}</a><nav><a href="/admin/home">Home</a><a href="/admin/notes">Notes</a><a href="/admin/calendar">Calendar</a><a href="/admin/password">Password</a><form method="post" action="/admin/logout"><button class="link" type="submit">Sign out</button></form></nav></div></header>`
     : "";
   const foot = signedIn
     ? `<footer class="colophon"><div><span>Wellsprings Academy</span><span>Think · Build · Belong</span></div></footer>`
